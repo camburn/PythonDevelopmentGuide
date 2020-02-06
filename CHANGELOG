@@ -1,0 +1,23 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+
+## [Unreleased]
+
+## [0.2.0] - 2019-06-03
+### Added
+- gitlab CI file to, lint, unit test, and build a wheel.
+- Detailed README.md with guidelines on all components in the project.
+- Add LICENSE.
+- Detail additional PyPi configurations.
+
+## [0.1.0] - 2019-01-23
+### Added
+- Standardised best practice project structure
+- Pylint configuration
+- setup.py and installation configuration
+- Example PyTest tests for the example module
+- example module with fizzbuzz and an Animal
+- Standard Python .gitignore
+- Project README.md

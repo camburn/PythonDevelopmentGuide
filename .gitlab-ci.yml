@@ -1,0 +1,47 @@
+image: python:latest
+
+stages:
+  - test
+  - build
+  - publish
+
+variables:
+  REQUESTS_CA_BUNDLE: /etc/ssl/certs/
+  SSL_CERT_DIR: /etc/ssl/certs/
+
+before_script:
+  - python -m venv venv
+  - source venv/bin/activate
+
+pylint:
+  stage: test
+  script:
+    - pip install pylint
+    - pylint my_module
+
+pytest:
+  stage: test
+  script:
+    - pip install pytest
+    - pytest
+
+build_wheel:
+  stage: build
+  script:
+  - pip install -U pip setuptools wheel
+  - python setup.py bdist_wheel
+  artifacts:
+    paths:
+    - dist/*.whl
+
+publish_wheel:
+  stage: publish
+  dependencies:
+    - build_wheel
+  script:
+  - pip install twine pyopenssl
+  - ls -lah dist/
+  - "twine upload --repository-url $PYPI_SERVER -u $PYPI_USERNAME -p $PYPI_PASSWORD dist/*.whl"
+  only:
+    variables:
+      - $PYPI_SERVER
